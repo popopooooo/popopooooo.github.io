@@ -1,1 +1,48 @@
-<h1>WelcometoBeijing</h1>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的视频页面</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>欢迎来到我的视频页面</h1>
+        
+        <!-- 视频按钮 -->
+        <div class="video-thumbnails">
+            <div class="video-thumbnail" onclick="playVideo('video1')">
+                <img src="thumbnail1.jpg" alt="视频1" />
+                <p>视频1</p>
+            </div>
+            <div class="video-thumbnail" onclick="playVideo('video2')">
+                <img src="thumbnail2.jpg" alt="视频2" />
+                <p>视频2</p>
+            </div>
+            <div class="video-thumbnail" onclick="playVideo('video3')">
+                <img src="thumbnail3.jpg" alt="视频3" />
+                <p>视频3</p>
+            </div>
+        </div>
+
+        <!-- 视频播放器 -->
+        <div class="video-player">
+            <video id="video1" class="video" controls>
+                <source src="video1.mp4" type="video/mp4">
+                您的浏览器不支持视频标签。
+            </video>
+            <video id="video2" class="video" controls>
+                <source src="video2.mp4" type="video/mp4">
+                您的浏览器不支持视频标签。
+            </video>
+            <video id="video3" class="video" controls>
+                <source src="video3.mp4" type="video/mp4">
+                您的浏览器不支持视频标签。
+            </video>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
