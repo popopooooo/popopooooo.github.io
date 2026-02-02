@@ -8,77 +8,98 @@
 </head>
 <body>
     <div class="container">
-        <!-- 分类条带：首页默认选中 -->
+        <!-- 分类按钮 -->
         <div class="cate-tabs">
-            <button class="cate-tab active" data-cate="home">首页</button>
-            <button class="cate-tab" data-cate="all">全部</button>
-            <button class="cate-tab" data-cate="game">游戏</button>
-            <button class="cate-tab" data-cate="life">生活</button>
-            <button class="cate-tab" data-cate="study">学习</button>
+            <button class="cate-tab on" data-target="home">首页</button>
+            <button class="cate-tab" data-target="all">全部</button>
+            <button class="cate-tab" data-target="game">游戏</button>
+            <button class="cate-tab" data-target="life">生活</button>
+            <button class="cate-tab" data-target="study">学习</button>
         </div>
 
-        <!-- 各分类专属标题+介绍：每个分类单独设置，默认仅首页显示 -->
-        <div class="cate-header home-header" data-cate="home">
+        <!-- 1. 首页内容：标题+介绍+轮播图【默认显示】 -->
+        <div class="cate-content home-content show">
             <h1>欢迎来到我的视频频道</h1>
-            <p class="cate-desc">这里是我的视频创作小站，分享游戏、生活、学习的精彩瞬间，感谢你的关注与支持～</p>
+            <p class="intro">这里是我的视频创作小站，分享游戏、生活、学习的精彩瞬间，感谢你的关注与支持～</p>
+            <!-- 轮播图 -->
+            <div class="carousel">
+                <div class="carousel-wrap">
+                    <img src="carousel1.jpg" alt="轮播图1">
+                    <img src="carousel2.jpg" alt="轮播图2">
+                    <img src="carousel3.jpg" alt="轮播图3">
+                </div>
+            </div>
         </div>
-        <div class="cate-header all-header" data-cate="all">
+
+        <!-- 2. 全部视频内容【默认隐藏】 -->
+        <div class="cate-content all-content">
             <h1>全部视频</h1>
-            <p class="cate-desc">汇集游戏、生活、学习所有优质内容，一次看个够！</p>
+            <p class="intro">汇集游戏、生活、学习所有优质内容，一次看个够！</p>
+            <div class="video-list">
+                <div class="video-item" data-vid="video1">
+                    <img src="thumbnail1.jpg" alt="游戏视频1">
+                    <p>游戏精彩操作</p>
+                </div>
+                <div class="video-item" data-vid="video2">
+                    <img src="thumbnail2.jpg" alt="生活视频1">
+                    <p>生活日常vlog</p>
+                </div>
+                <div class="video-item" data-vid="video3">
+                    <img src="thumbnail3.jpg" alt="学习视频1">
+                    <p>Python入门教程</p>
+                </div>
+            </div>
         </div>
-        <div class="cate-header game-header" data-cate="game">
+
+        <!-- 3. 游戏视频内容【默认隐藏】 -->
+        <div class="cate-content game-content">
             <h1>游戏视频</h1>
-            <p class="cate-desc">游戏日常、操作技巧、通关攻略，带你体验游戏的乐趣！</p>
+            <p class="intro">游戏日常、操作技巧、通关攻略，带你体验游戏的乐趣！</p>
+            <div class="video-list">
+                <div class="video-item" data-vid="video1">
+                    <img src="thumbnail1.jpg" alt="游戏视频1">
+                    <p>游戏精彩操作</p>
+                </div>
+            </div>
         </div>
-        <div class="cate-header life-header" data-cate="life">
+
+        <!-- 4. 生活视频内容【默认隐藏】 -->
+        <div class="cate-content life-content">
             <h1>生活视频</h1>
-            <p class="cate-desc">记录生活点滴、日常趣事、好物分享，感受生活的美好～</p>
+            <p class="intro">记录生活点滴、日常趣事、好物分享，感受生活的美好～</p>
+            <div class="video-list">
+                <div class="video-item" data-vid="video2">
+                    <img src="thumbnail2.jpg" alt="生活视频1">
+                    <p>生活日常vlog</p>
+                </div>
+            </div>
         </div>
-        <div class="cate-header study-header" data-cate="study">
+
+        <!-- 5. 学习视频内容【默认隐藏】 -->
+        <div class="cate-content study-content">
             <h1>学习视频</h1>
-            <p class="cate-desc">学习干货、知识点讲解、高效学习方法，一起进步成长！</p>
+            <p class="intro">学习干货、知识点讲解、高效学习方法，一起进步成长！</p>
+            <div class="video-list">
+                <div class="video-item" data-vid="video3">
+                    <img src="thumbnail3.jpg" alt="学习视频1">
+                    <p>Python入门教程</p>
+                </div>
+            </div>
         </div>
 
-        <!-- 首页专属：轮播图片（仅首页显示） -->
-        <div class="home-carousel" data-cate="home">
-            <div class="carousel-inner">
-                <img src="carousel1.jpg" alt="轮播图1">
-                <img src="carousel2.jpg" alt="轮播图2">
-                <img src="carousel3.jpg" alt="轮播图3">
-                <!-- 可无限新增图片，自动适配轮播 -->
-            </div>
-        </div>
-        
-        <!-- 视频缩略图（非首页显示，按分类筛选） -->
-        <div class="video-thumbnails">
-            <div class="video-thumbnail" data-cate="game" onclick="playVideo('video1')">
-                <img src="thumbnail1.jpg" alt="游戏视频1" />
-                <p>游戏精彩操作</p>
-            </div>
-            <div class="video-thumbnail" data-cate="life" onclick="playVideo('video2')">
-                <img src="thumbnail2.jpg" alt="生活视频1" />
-                <p>生活日常vlog</p>
-            </div>
-            <div class="video-thumbnail" data-cate="study" onclick="playVideo('video3')">
-                <img src="thumbnail3.jpg" alt="学习视频1" />
-                <p>Python入门教程</p>
-            </div>
-            <!-- 可新增更多视频，只需匹配data-cate即可 -->
-        </div>
-
-        <!-- 视频播放器（非首页显示，点击缩略图激活） -->
+        <!-- 视频播放器【默认隐藏】 -->
         <div class="video-player">
             <video id="video1" class="video" controls>
                 <source src="video1.mp4" type="video/mp4">
-                您的浏览器不支持视频标签。
+                您的浏览器不支持视频标签
             </video>
             <video id="video2" class="video" controls>
                 <source src="video2.mp4" type="video/mp4">
-                您的浏览器不支持视频标签。
+                您的浏览器不支持视频标签
             </video>
             <video id="video3" class="video" controls>
                 <source src="video3.mp4" type="video/mp4">
-                您的浏览器不支持视频标签。
+                您的浏览器不支持视频标签
             </video>
         </div>
     </div>

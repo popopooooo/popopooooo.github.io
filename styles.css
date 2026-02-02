@@ -1,16 +1,14 @@
-/* 全局样式重置 */
+/* 全局重置 - 极简 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Microsoft YaHei", sans-serif;
+    font-family: "微软雅黑", sans-serif;
 }
-
 body {
-    background-color: #f5f5f5;
+    background: #f5f5f5;
     padding: 20px;
 }
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -25,124 +23,112 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
 }
-
 .cate-tab {
     padding: 8px 16px;
     border: 1px solid #ddd;
     border-radius: 20px;
     background: #fff;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-size: 14px;
+    transition: all 0.3s;
+    border: none;
 }
-
-.cate-tab.active {
+/* 选中的按钮样式 */
+.cate-tab.on {
     background: #0366d6;
     color: #fff;
-    border-color: #0366d6;
 }
-
-.cate-tab:hover {
-    border-color: #0366d6;
+.cate-tab:hover:not(.on) {
     color: #0366d6;
+    background: #f1f5f9;
 }
 
-/* 各分类标题+介绍：默认全部隐藏，由JS控制显示【修复堆积核心】 */
-.cate-header {
-    text-align: center;
+/* 分类内容容器：默认全部隐藏，只有加show才显示 */
+.cate-content {
+    display: none !important;
     margin-bottom: 30px;
-    display: none !important; /* 强制隐藏，避免样式覆盖 */
+    text-align: center;
 }
-/* 仅首页标题初始化显示（配合JS） */
-.cate-header[data-cate="home"] {
+.cate-content.show {
     display: block !important;
 }
-
-.cate-header h1 {
-    color: #333;
+/* 分类标题和介绍 */
+.cate-content h1 {
     font-size: 24px;
+    color: #333;
     margin-bottom: 10px;
 }
-
-.cate-header .cate-desc {
-    color: #666;
+.cate-content .intro {
     font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
     line-height: 1.6;
 }
 
-/* 首页专属：无缝轮播图【优化宽度，自动适配图片数量】 */
-.home-carousel {
+/* 首页轮播图：无缝滚动 - 简化版（百分百兼容） */
+.carousel {
     width: 100%;
     max-width: 1000px;
     height: 320px;
-    margin: 0 auto 30px;
+    margin: 0 auto;
     overflow: hidden;
-    position: relative;
     border-radius: 8px;
-    display: block; /* 首页默认显示 */
+    position: relative;
 }
-/* 轮播容器：flex布局，宽度自动适配子元素【无需手动改宽度】 */
-.carousel-inner {
+.carousel-wrap {
     display: flex;
     height: 100%;
-    animation: carouselScroll 15s infinite linear;
+    animation: scroll 15s infinite linear;
 }
-/* 每张轮播图自动占满宽度，新增图片无需改CSS */
-.home-carousel img {
+.carousel img {
     width: 100%;
     height: 100%;
-    flex-shrink: 0; /* 禁止图片压缩 */
-    object-fit: cover; /* 保持比例，不拉伸 */
+    flex-shrink: 0;
+    object-fit: cover;
 }
-/* 无缝滚动动画：平移距离为容器宽度，适配任意图片数量 */
-@keyframes carouselScroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+/* 轮播动画 */
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }
 
-/* 视频缩略图容器 */
-.video-thumbnails {
+/* 视频列表：缩略图布局 */
+.video-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-top: 20px;
 }
-/* 视频缩略图：默认隐藏，由JS控制显示 */
-.video-thumbnail {
+.video-item {
     width: 200px;
     cursor: pointer;
-    text-align: center;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    display: none;
+    transition: all 0.3s;
 }
-.video-thumbnail:hover {
+.video-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
-.video-thumbnail img {
+.video-item img {
     width: 100%;
     height: 120px;
     object-fit: cover;
 }
-.video-thumbnail p {
+.video-item p {
     padding: 10px;
     color: #333;
     font-size: 14px;
+    text-align: center;
 }
 
-/* 视频播放器样式 */
+/* 视频播放器 */
 .video-player {
     width: 100%;
     max-width: 800px;
@@ -163,32 +149,31 @@ body {
     .container {
         padding: 20px;
     }
-    .cate-header h1 {
+    .cate-content h1 {
         font-size: 20px;
     }
-    .cate-header .cate-desc {
+    .cate-content .intro {
         font-size: 14px;
     }
-    .home-carousel {
+    .carousel {
         height: 180px;
     }
-    .video-thumbnail {
+    .video-item {
         width: 160px;
     }
-    .video-thumbnail img {
+    .video-item img {
         height: 100px;
     }
 }
-
 @media (max-width: 480px) {
     .cate-tab {
         padding: 6px 12px;
         font-size: 12px;
     }
-    .home-carousel {
+    .carousel {
         height: 150px;
     }
-    .video-thumbnail {
+    .video-item {
         width: 100%;
         max-width: 200px;
     }
