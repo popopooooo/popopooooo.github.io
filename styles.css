@@ -20,7 +20,7 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* 新增：分类条带样式 */
+/* 分类条带样式 */
 .cate-tabs {
     display: flex;
     flex-wrap: wrap; /* 移动端自动换行 */
@@ -60,6 +60,60 @@ h1 {
     font-size: 24px;
 }
 
+/* 新增：首页容器样式 - 介绍文字+滚动图片 */
+.home-container {
+    max-width: 1000px;
+    margin: 0 auto 30px;
+    padding: 20px;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+/* 首页介绍文字 */
+.home-intro {
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 1.8;
+    color: #333;
+}
+.home-intro h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #0366d6;
+}
+.home-intro p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+/* 首页滚动图片：无缝横向滚动，自动播放 */
+.home-carousel {
+    width: 100%;
+    height: 300px; /* 滚动图高度，可自行调整 */
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+}
+.home-carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 保持图片比例，不拉伸 */
+    position: absolute;
+    top: 0;
+    left: 100%;
+    animation: carousel 15s infinite linear;
+}
+/* 给每张轮播图设置不同的动画延迟，实现无缝滚动 */
+.home-carousel img:nth-child(1) { animation-delay: 0s; }
+.home-carousel img:nth-child(2) { animation-delay: 5s; }
+.home-carousel img:nth-child(3) { animation-delay: 10s; }
+/* 滚动动画关键帧 */
+@keyframes carousel {
+    0% { left: 100%; }
+    3% { left: 0; }
+    30% { left: 0; }
+    33% { left: -100%; }
+    100% { left: -100%; }
+}
+
 /* 视频缩略图容器 */
 .video-thumbnails {
     display: flex;
@@ -78,6 +132,7 @@ h1 {
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
+    display: none; /* 初始隐藏，非首页再根据分类显示 */
 }
 
 .video-thumbnail:hover {
@@ -114,4 +169,20 @@ h1 {
 /* 让选中的视频显示 */
 .video.active {
     display: block;
+}
+
+/* 移动端适配：缩小滚动图高度、调整字体 */
+@media (max-width: 768px) {
+    .home-carousel {
+        height: 180px;
+    }
+    .home-intro h2 {
+        font-size: 18px;
+    }
+    .home-intro p {
+        font-size: 14px;
+    }
+    h1 {
+        font-size: 20px;
+    }
 }

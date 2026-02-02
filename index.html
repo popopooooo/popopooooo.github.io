@@ -8,9 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <!-- 新增：视频分类条带 --> 
+        <!-- 视频分类条带：新增【首页】按钮，设为默认active -->
         <div class="cate-tabs">
-            <button class="cate-tab active" data-cate="all">全部</button>
+            <button class="cate-tab active" data-cate="home">首页</button>
+            <button class="cate-tab" data-cate="all">全部</button>
             <button class="cate-tab" data-cate="game">游戏</button>
             <button class="cate-tab" data-cate="life">生活</button>
             <button class="cate-tab" data-cate="study">学习</button>
@@ -18,6 +19,22 @@
         </div>
         
         <h1>欢迎来到我的视频页面</h1>
+
+        <!-- 新增：首页专属容器 - 介绍文字+滚动图片 -->
+        <div class="home-container">
+            <div class="home-intro">
+                <h2>关于我的视频频道</h2>
+                <p>这里会分享我的<strong>游戏日常</strong>、<strong>生活点滴</strong>和<strong>学习干货</strong>，希望我的内容能给你带来快乐和收获！</p>
+                <p>点击上方分类，即可查看对应类型的视频内容，感谢你的关注～</p>
+            </div>
+            <!-- 滚动图片容器 -->
+            <div class="home-carousel">
+                <img src="carousel1.jpg" alt="轮播图1">
+                <img src="carousel2.jpg" alt="轮播图2">
+                <img src="carousel3.jpg" alt="轮播图3">
+                <!-- 可新增更多轮播图，CSS已做自适应 -->
+            </div>
+        </div>
         
         <!-- 视频按钮 -->
         <div class="video-thumbnails">
