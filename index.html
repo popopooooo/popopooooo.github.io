@@ -8,51 +8,65 @@
 </head>
 <body>
     <div class="container">
-        <!-- 视频分类条带：新增【首页】按钮，设为默认active -->
+        <!-- 分类条带：首页默认选中 -->
         <div class="cate-tabs">
             <button class="cate-tab active" data-cate="home">首页</button>
             <button class="cate-tab" data-cate="all">全部</button>
             <button class="cate-tab" data-cate="game">游戏</button>
             <button class="cate-tab" data-cate="life">生活</button>
             <button class="cate-tab" data-cate="study">学习</button>
-            <!-- 可根据需要新增更多分类 -->
         </div>
-        
-        <h1>欢迎来到我的视频页面</h1>
 
-        <!-- 新增：首页专属容器 - 介绍文字+滚动图片 -->
-        <div class="home-container">
-            <div class="home-intro">
-                <h2>关于我的视频频道</h2>
-                <p>这里会分享我的<strong>游戏日常</strong>、<strong>生活点滴</strong>和<strong>学习干货</strong>，希望我的内容能给你带来快乐和收获！</p>
-                <p>点击上方分类，即可查看对应类型的视频内容，感谢你的关注～</p>
-            </div>
-            <!-- 滚动图片容器 -->
-            <div class="home-carousel">
+        <!-- 各分类专属标题+介绍：每个分类单独设置，默认仅首页显示 -->
+        <div class="cate-header home-header" data-cate="home">
+            <h1>欢迎来到我的视频频道</h1>
+            <p class="cate-desc">这里是我的视频创作小站，分享游戏、生活、学习的精彩瞬间，感谢你的关注与支持～</p>
+        </div>
+        <div class="cate-header all-header" data-cate="all">
+            <h1>全部视频</h1>
+            <p class="cate-desc">汇集游戏、生活、学习所有优质内容，一次看个够！</p>
+        </div>
+        <div class="cate-header game-header" data-cate="game">
+            <h1>游戏视频</h1>
+            <p class="cate-desc">游戏日常、操作技巧、通关攻略，带你体验游戏的乐趣！</p>
+        </div>
+        <div class="cate-header life-header" data-cate="life">
+            <h1>生活视频</h1>
+            <p class="cate-desc">记录生活点滴、日常趣事、好物分享，感受生活的美好～</p>
+        </div>
+        <div class="cate-header study-header" data-cate="study">
+            <h1>学习视频</h1>
+            <p class="cate-desc">学习干货、知识点讲解、高效学习方法，一起进步成长！</p>
+        </div>
+
+        <!-- 首页专属：轮播图片（仅首页显示） -->
+        <div class="home-carousel" data-cate="home">
+            <div class="carousel-inner">
                 <img src="carousel1.jpg" alt="轮播图1">
                 <img src="carousel2.jpg" alt="轮播图2">
                 <img src="carousel3.jpg" alt="轮播图3">
-                <!-- 可新增更多轮播图，CSS已做自适应 -->
+                <!-- 可无限新增图片，自动适配轮播 -->
             </div>
         </div>
         
-        <!-- 视频按钮 -->
+        <!-- 视频缩略图（非首页显示，按分类筛选） -->
         <div class="video-thumbnails">
             <div class="video-thumbnail" data-cate="game" onclick="playVideo('video1')">
-                <img src="thumbnail1.jpg" alt="视频1" />
-                <p>视频1</p>
+                <img src="thumbnail1.jpg" alt="游戏视频1" />
+                <p>游戏精彩操作</p>
             </div>
             <div class="video-thumbnail" data-cate="life" onclick="playVideo('video2')">
-                <img src="thumbnail2.jpg" alt="视频2" />
-                <p>视频2</p>
+                <img src="thumbnail2.jpg" alt="生活视频1" />
+                <p>生活日常vlog</p>
             </div>
             <div class="video-thumbnail" data-cate="study" onclick="playVideo('video3')">
-                <img src="thumbnail3.jpg" alt="视频3" />
-                <p>视频3</p>
+                <img src="thumbnail3.jpg" alt="学习视频1" />
+                <p>Python入门教程</p>
             </div>
+            <!-- 可新增更多视频，只需匹配data-cate即可 -->
         </div>
 
-        <!-- 视频播放器 -->
+        <!-- 视频播放器（非首页显示，点击缩略图激活） -->
         <div class="video-player">
             <video id="video1" class="video" controls>
                 <source src="video1.mp4" type="video/mp4">

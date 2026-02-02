@@ -1,52 +1,58 @@
-// 页面DOM加载完成后执行，避免元素未加载导致的错误
+// 页面DOM加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
-    // 获取所有核心元素：新增【首页容器】
-    const cateTabs = document.querySelectorAll('.cate-tab'); // 所有分类按钮
-    const videoThumbs = document.querySelectorAll('.video-thumbnail'); // 所有视频缩略图
-    const videos = document.querySelectorAll('.video'); // 所有视频播放器
-    const homeContainer = document.querySelector('.home-container'); // 首页专属容器
+    // 获取所有核心元素
+    const cateTabs = document.querySelectorAll('.cate-tab');
+    const videoThumbs = document.querySelectorAll('.video-thumbnail');
+    const videos = document.querySelectorAll('.video');
+    const cateHeaders = document.querySelectorAll('.cate-header'); // 所有分类标题+介绍
+    const homeCarousel = document.querySelector('.home-carousel'); // 首页轮播图
 
-    // ========== 核心1：分类筛选逻辑（新增首页判断） ==========
+    // ========== 核心：分类总控逻辑（所有内容按分类显示/隐藏） ==========
+    function switchCate(currentCate) {
+        // 1. 切换分类按钮选中状态
+        cateTabs.forEach(t => t.classList.remove('active'));
+        document.querySelector(`.cate-tab[data-cate="${currentCate}"]`).classList.add('active');
+
+        // 2. 切换分类标题+介绍：仅显示当前分类的
+        cateHeaders.forEach(header => {
+            header.style.display = header.dataset.cate === currentCate ? 'block' : 'none';
+        });
+
+        // 3. 控制首页轮播图：仅首页显示
+        homeCarousel.style.display = currentCate === 'home' ? 'block' : 'none';
+
+        // 4. 控制视频缩略图：首页隐藏，其他分类按标识筛选
+        if (currentCate === 'home') {
+            videoThumbs.forEach(thumb => thumb.style.display = 'none');
+        } else {
+            videoThumbs.forEach(thumb => {
+                thumb.style.display = (currentCate === 'all' || thumb.dataset.cate === currentCate) 
+                    ? 'block' 
+                    : 'none';
+            });
+        }
+
+        // 5. 切换分类后隐藏所有视频播放器
+        videos.forEach(v => v.classList.remove('active'));
+    }
+
+    // 初始化：默认显示首页
+    switchCate('home');
+
+    // 分类按钮点击事件
     cateTabs.forEach(tab => {
         tab.addEventListener('click', function() {
-            // 1. 切换分类按钮的选中状态（取消其他，选中当前）
-            cateTabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            // 2. 获取当前点击的分类标识（home/all/game/life/study）
-            const currentCate = this.dataset.cate;
-
-            // 核心新增：根据是否是首页，控制首页容器/视频的显示隐藏
-            if (currentCate === 'home') {
-                // 首页：显示首页容器，隐藏视频缩略图+所有视频播放器
-                homeContainer.style.display = 'block';
-                videoThumbs.forEach(thumb => thumb.style.display = 'none');
-                videos.forEach(v => v.classList.remove('active'));
-            } else {
-                // 非首页：隐藏首页容器，筛选显示对应分类的视频缩略图
-                homeContainer.style.display = 'none';
-                videoThumbs.forEach(thumb => {
-                    const thumbCate = thumb.dataset.cate;
-                    if (currentCate === 'all' || thumbCate === currentCate) {
-                        thumb.style.display = 'block'; // 显示对应分类视频
-                    } else {
-                        thumb.style.display = 'none'; // 隐藏非对应分类视频
-                    }
-                });
-                // 切换分类后，隐藏所有视频播放器（避免分类切换后还显示其他视频）
-                videos.forEach(v => v.classList.remove('active'));
-            }
+            switchCate(this.dataset.cate);
         });
     });
 
-    // ========== 核心2：播放视频逻辑（配合HTML的onclick） ==========
+    // ========== 视频播放逻辑（原有功能不变） ==========
     window.playVideo = function(videoId) {
-        // 1. 隐藏所有视频播放器
         videos.forEach(v => v.classList.remove('active'));
-        // 2. 找到并显示点击的视频播放器
         const targetVideo = document.getElementById(videoId);
         if (targetVideo) {
             targetVideo.classList.add('active');
-            // 可选：取消自动播放（如需手动点击播放，删掉下面这行即可）
+            // 如需自动播放，取消下面注释
             // targetVideo.play();
         }
     };
