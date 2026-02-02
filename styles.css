@@ -51,11 +51,15 @@ body {
     color: #0366d6;
 }
 
-/* 各分类标题+介绍样式 */
+/* 各分类标题+介绍：默认全部隐藏，由JS控制显示【修复堆积核心】 */
 .cate-header {
     text-align: center;
     margin-bottom: 30px;
-    display: none; /* 默认隐藏，JS控制显示 */
+    display: none !important; /* 强制隐藏，避免样式覆盖 */
+}
+/* 仅首页标题初始化显示（配合JS） */
+.cate-header[data-cate="home"] {
+    display: block !important;
 }
 
 .cate-header h1 {
@@ -70,7 +74,7 @@ body {
     line-height: 1.6;
 }
 
-/* 首页专属：无缝轮播图（核心修复，保证滚动） */
+/* 首页专属：无缝轮播图【优化宽度，自动适配图片数量】 */
 .home-carousel {
     width: 100%;
     max-width: 1000px;
@@ -79,31 +83,28 @@ body {
     overflow: hidden;
     position: relative;
     border-radius: 8px;
-    display: none; /* 默认隐藏，JS控制首页显示 */
+    display: block; /* 首页默认显示 */
 }
-
-/* 轮播容器：开启弹性布局，实现无缝滚动 */
+/* 轮播容器：flex布局，宽度自动适配子元素【无需手动改宽度】 */
 .carousel-inner {
     display: flex;
-    width: calc(100% * 3); /* 图片数量N → 100% * N */
     height: 100%;
-    animation: carouselScroll 15s infinite linear; /* 滚动动画：总时长15s，匀速循环 */
+    animation: carouselScroll 15s infinite linear;
 }
-
+/* 每张轮播图自动占满宽度，新增图片无需改CSS */
 .home-carousel img {
-    flex: 1;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 保持图片比例，不拉伸变形 */
+    flex-shrink: 0; /* 禁止图片压缩 */
+    object-fit: cover; /* 保持比例，不拉伸 */
 }
-
-/* 无缝滚动核心动画：从左到右平移 */
+/* 无缝滚动动画：平移距离为容器宽度，适配任意图片数量 */
 @keyframes carouselScroll {
     0% {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-100%); /* 平移距离=单个图片宽度，实现无缝 */
+        transform: translateX(-100%);
     }
 }
 
@@ -115,8 +116,7 @@ body {
     justify-content: center;
     margin-bottom: 30px;
 }
-
-/* 视频缩略图样式 */
+/* 视频缩略图：默认隐藏，由JS控制显示 */
 .video-thumbnail {
     width: 200px;
     cursor: pointer;
@@ -125,20 +125,17 @@ body {
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
-    display: none; /* 默认隐藏，JS控制显示 */
+    display: none;
 }
-
 .video-thumbnail:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
-
 .video-thumbnail img {
     width: 100%;
     height: 120px;
     object-fit: cover;
 }
-
 .video-thumbnail p {
     padding: 10px;
     color: #333;
@@ -151,19 +148,17 @@ body {
     max-width: 800px;
     margin: 0 auto;
 }
-
 .video {
     width: 100%;
     height: auto;
     border-radius: 8px;
     display: none;
 }
-
 .video.active {
     display: block;
 }
 
-/* 移动端自适应：全设备兼容 */
+/* 移动端自适应 */
 @media (max-width: 768px) {
     .container {
         padding: 20px;
@@ -175,7 +170,7 @@ body {
         font-size: 14px;
     }
     .home-carousel {
-        height: 180px; /* 手机端缩小轮播图高度 */
+        height: 180px;
     }
     .video-thumbnail {
         width: 160px;
