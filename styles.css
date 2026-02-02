@@ -1,66 +1,117 @@
+/* 全局样式重置，消除默认边距 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Microsoft YaHei", sans-serif;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
+    background-color: #f5f5f5;
+    padding: 20px;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-h1 {
-    font-size: 2.5rem;
+/* 新增：分类条带样式 */
+.cate-tabs {
+    display: flex;
+    flex-wrap: wrap; /* 移动端自动换行 */
+    gap: 10px; /* 按钮之间的间距 */
     margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee; /* 底部分隔线，更美观 */
 }
 
+.cate-tab {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 20px; /* 圆角按钮，更现代 */
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease; /* 过渡效果，点击更顺滑 */
+    font-size: 14px;
+}
+
+/* 选中的分类按钮样式 */
+.cate-tab.active {
+    background: #0366d6; /* GitHub主题蓝，贴合Pages风格 */
+    color: #fff;
+    border-color: #0366d6;
+}
+
+.cate-tab:hover {
+    border-color: #0366d6;
+    color: #0366d6;
+}
+
+/* 原有标题样式 */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 24px;
+}
+
+/* 视频缩略图容器 */
 .video-thumbnails {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
+/* 视频缩略图样式 */
 .video-thumbnail {
+    width: 200px;
     cursor: pointer;
-    width: 150px;
     text-align: center;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.video-thumbnail:hover {
+    transform: translateY(-5px); /* 悬浮上移，有立体感 */
 }
 
 .video-thumbnail img {
     width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 120px;
+    object-fit: cover; /* 保持图片比例，不拉伸 */
 }
 
 .video-thumbnail p {
-    margin-top: 10px;
-    font-size: 1.1rem;
-    color: #555;
+    padding: 10px;
+    color: #333;
+    font-size: 14px;
 }
 
+/* 视频播放器容器 */
 .video-player {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    padding-top: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
+/* 视频样式：默认只显示一个，其余隐藏（配合JS） */
 .video {
     width: 100%;
-    max-width: 500px;
-    display: none;
+    height: auto;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* 初始全部隐藏 */
+}
+
+/* 让选中的视频显示 */
+.video.active {
+    display: block;
 }
