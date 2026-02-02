@@ -1,45 +1,44 @@
-// 页面加载完成后执行（避免DOM未加载导致的错误）
+// 页面DOM加载完成后执行，避免元素未加载导致的错误
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. 获取所有元素
+    // 获取所有核心元素
     const cateTabs = document.querySelectorAll('.cate-tab'); // 所有分类按钮
-    const videoThumbnails = document.querySelectorAll('.video-thumbnail'); // 所有视频缩略图
+    const videoThumbs = document.querySelectorAll('.video-thumbnail'); // 所有视频缩略图
     const videos = document.querySelectorAll('.video'); // 所有视频播放器
 
-    // 初始默认显示第一个视频
-    if (videos.length > 0) {
-        videos[0].classList.add('active');
-    }
-
-    // 2. 分类筛选逻辑
+    // ========== 核心1：分类筛选逻辑 ==========
     cateTabs.forEach(tab => {
         tab.addEventListener('click', function() {
-            // 移除所有分类的选中状态
+            // 1. 切换分类按钮的选中状态（取消其他，选中当前）
             cateTabs.forEach(t => t.classList.remove('active'));
-            // 给当前点击的分类添加选中状态
             this.classList.add('active');
-            // 获取当前分类的标识（all/game/life/study）
+            // 2. 获取当前点击的分类标识（all/game/life/study）
             const currentCate = this.dataset.cate;
 
-            // 筛选视频缩略图
-            videoThumbnails.forEach(thumbnail => {
-                const thumbnailCate = thumbnail.dataset.cate;
-                // 全部分类：显示所有；否则只显示对应分类
-                if (currentCate === 'all' || thumbnailCate === currentCate) {
-                    thumbnail.style.display = 'block';
+            // 3. 筛选视频缩略图：仅显示对应分类，隐藏其他
+            videoThumbs.forEach(thumb => {
+                const thumbCate = thumb.dataset.cate;
+                if (currentCate === 'all' || thumbCate === currentCate) {
+                    thumb.style.display = 'block'; // 显示对应分类视频
                 } else {
-                    thumbnail.style.display = 'none';
+                    thumb.style.display = 'none'; // 隐藏非对应分类视频
                 }
             });
+
+            // 可选：切换分类后，隐藏所有视频播放器（避免分类切换后还显示其他视频）
+            videos.forEach(v => v.classList.remove('active'));
         });
     });
 
-    // 3. 播放视频的全局函数（配合HTML中的onclick）
+    // ========== 核心2：播放视频逻辑（配合HTML的onclick） ==========
     window.playVideo = function(videoId) {
-        // 移除所有视频的显示状态
+        // 1. 隐藏所有视频播放器
         videos.forEach(v => v.classList.remove('active'));
-        // 给选中的视频添加显示状态并播放
+        // 2. 找到并显示点击的视频播放器
         const targetVideo = document.getElementById(videoId);
-        targetVideo.classList.add('active');
-        targetVideo.play(); // 自动播放（可选，去掉则需要手动点击播放）
+        if (targetVideo) {
+            targetVideo.classList.add('active');
+            // 可选：取消自动播放（如需手动点击播放，删掉下面这行即可）
+            // targetVideo.play();
+        }
     };
 });
